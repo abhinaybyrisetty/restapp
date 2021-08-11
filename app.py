@@ -1,4 +1,6 @@
 from flask import Flask
+import os
+from ddtrace import tracer
 app = Flask(__name__)
 
 @app.route('/')
