@@ -17,6 +17,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Webhook
-      run: |
-        curl -u ${{ secrets.SPIN_USER }}:${{ secrets.SPIN_PASS }} -X POST https://spin-gate.lenskart.opsmx.com/pipelines/lenskart-poc/github-trigger
+    - name: Trigger Spinnaker Pipeline
+      uses: distributhor/workflow-webhook
+      with:
+        url: "https://spin-gate.lenskart.opsmx.com/webhooks/webhook/action"
+        json: '{ "repository": "${{github.event.repository.full_name}}", "commit_url": "${{github.event.repository.commits_url}}" }'
